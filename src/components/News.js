@@ -72,9 +72,13 @@ export class News extends Component {
   // }
 // }
   render() {
+
+    const mode = this.props.mode;
+
+
     return (
       <div className="container my-2">
-        <h2 className = "text-center">News Daily - Top Headlines</h2>
+        <h2 className = {`text-center text-${mode==="light" ? "dark" : "light"}`}>News Daily - Top Headlines</h2>
         {this.state.loading && <Spinner />}
         <div className="row my-2">
             {!this.state.loading && this.state.articles.map((element)=>{
@@ -84,6 +88,10 @@ export class News extends Component {
                   description={element.description ? element.description.slice(0, 60) : ""}
                   imageUrl={element.urlToImage ? element.urlToImage : "https://aithority.com/wp-content/uploads/2021/10/NASAs-Juno-Science-Results-Offer-First-3D-View-of-Jupiter-Atmosphere.jpg"}
                   newsUrl = {element.url}
+
+
+
+                  mode = {mode} 
                 />
               </div>
             })}
@@ -91,8 +99,8 @@ export class News extends Component {
         </div>
 
         <div className="container d-flex justify-content-between">
-          <button type="button" class="btn btn-dark"  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
-          <button type="button" class="btn btn-dark" onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
+          <button type="button" class={`btn btn-${mode==="light" ? "dark" : "light"}`}  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
+          <button type="button"  class={`btn btn-${mode==="light" ? "dark" : "light"}`} onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
         </div>
       </div>
     );

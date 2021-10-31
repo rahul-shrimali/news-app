@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 export class NavBar extends Component {
-  static propTypes = {};
-
   render() {
+    const mode = this.props.mode;
+    const toggleMode = this.props.toggleMode;
+
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
               NewsDaily
@@ -38,9 +39,27 @@ export class NavBar extends Component {
                     About
                   </a>
                 </li>
-                
               </ul>
-              
+              <form className="form-inline d-flex ">
+                <div
+                  className={`form-check form-switch text-${
+                    mode === "light" ? "dark" : "light"
+                  }`}
+                >
+                  <input
+                    className="form-check-input"
+                    onClick={toggleMode}
+                    type="checkbox"
+                    id="flexSwitchCheckDefault"
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexSwitchCheckDefault"
+                  >
+                    Enable Dark Mode
+                  </label>
+                </div>
+              </form>
             </div>
           </div>
         </nav>

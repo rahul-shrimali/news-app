@@ -19,7 +19,7 @@ export class News extends Component {
 
   async componentDidMount(){
     this.setState({loading : true});
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=1&pageSize=${this.state.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=1&pageSize=${this.state.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -33,10 +33,10 @@ export class News extends Component {
     let url = "";
     this.setState({loading : true});
     if(prev){
-      url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=${this.state.pageSize}`;
+      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=${this.state.pageSize}`;
       this.setState({page : this.state.page - 1});
     }else{
-      url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=${this.state.pageSize}`;
+      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=${this.state.pageSize}`;
       this.setState({page : this.state.page + 1});
     }
 
@@ -49,7 +49,7 @@ export class News extends Component {
 
   // {// handleNextClick = async ()=>{
   //   console.log("Next");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=18`;
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=18`;
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -61,7 +61,7 @@ export class News extends Component {
 
   // handlePrevClick = async ()=>{
   //   console.log("Prev");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=18`;
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=18`;
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -73,12 +73,10 @@ export class News extends Component {
 // }
   render() {
 
-    const mode = this.props.mode;
-
 
     return (
       <div className="container my-2">
-        <h2 className = {`text-center text-${mode==="light" ? "dark" : "light"}`}>News Daily - Top Headlines</h2>
+        <h2 className = {`text-center text-${this.props.mode==="light" ? "dark" : "light"}`}>News Daily - Top Headlines</h2>
         {this.state.loading && <Spinner />}
         <div className="row my-2">
             {!this.state.loading && this.state.articles.map((element)=>{
@@ -91,7 +89,7 @@ export class News extends Component {
 
 
 
-                  mode = {mode} 
+                  mode = {this.props.mode} 
                 />
               </div>
             })}
@@ -99,8 +97,8 @@ export class News extends Component {
         </div>
 
         <div className="container d-flex justify-content-between">
-          <button type="button" class={`btn btn-${mode==="light" ? "dark" : "light"}`}  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
-          <button type="button"  class={`btn btn-${mode==="light" ? "dark" : "light"}`} onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
+          <button type="button" class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`}  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
+          <button type="button"  class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`} onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
-import spinner, { Spinner } from "./Spinner";
+import { Spinner } from "./Spinner";
 
 export class News extends Component {
     
@@ -19,7 +19,7 @@ export class News extends Component {
 
   async componentDidMount(){
     this.setState({loading : true});
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=1&pageSize=${this.state.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=de9e775feeda4f1794121c12d48c3252&page=1&pageSize=${this.state.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -29,14 +29,14 @@ export class News extends Component {
   }
 
 
-    async handleClick(prev){
+    handleClick= async (prev)=>{
     let url = "";
     this.setState({loading : true});
     if(prev){
-      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=${this.state.pageSize}`;
+      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=de9e775feeda4f1794121c12d48c3252&page=${this.state.page-1}&pageSize=${this.state.pageSize}`;
       this.setState({page : this.state.page - 1});
     }else{
-      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=${this.state.pageSize}`;
+      url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=de9e775feeda4f1794121c12d48c3252&page=${this.state.page+1}&pageSize=${this.state.pageSize}`;
       this.setState({page : this.state.page + 1});
     }
 
@@ -49,7 +49,7 @@ export class News extends Component {
 
   // {// handleNextClick = async ()=>{
   //   console.log("Next");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page + 1}&pageSize=18`;
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=de9e775feeda4f1794121c12d48c3252&page=${this.state.page + 1}&pageSize=18`;
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -61,7 +61,7 @@ export class News extends Component {
 
   // handlePrevClick = async ()=>{
   //   console.log("Prev");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2a1387763d3e4cc2a092974a2cdd0c64&page=${this.state.page - 1}&pageSize=18`;
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=de9e775feeda4f1794121c12d48c3252&page=${this.state.page - 1}&pageSize=18`;
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -87,7 +87,8 @@ export class News extends Component {
                   imageUrl={element.urlToImage ? element.urlToImage : "https://aithority.com/wp-content/uploads/2021/10/NASAs-Juno-Science-Results-Offer-First-3D-View-of-Jupiter-Atmosphere.jpg"}
                   newsUrl = {element.url}
 
-
+                  author = {element.author}
+                  date = {element.publishedAt}
 
                   mode = {this.props.mode} 
                 />
@@ -97,8 +98,8 @@ export class News extends Component {
         </div>
 
         <div className="container d-flex justify-content-between">
-          <button type="button" class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`}  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
-          <button type="button"  class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`} onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
+          <button type="button" class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`}  onClick = {this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
+          <button type="button"  class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`} onClick = {this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
         </div>
       </div>
     );

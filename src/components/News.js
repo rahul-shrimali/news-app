@@ -13,7 +13,7 @@ export class News extends Component {
         loading : false,
         page : 1,
         totalResults : 0,
-        pageSize : 6
+        pageSize : 12
     }
   }
 
@@ -22,7 +22,7 @@ export class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d960c7f2025e4bdfbe7a253f8d83cabc&page=1&pageSize=${this.state.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
-    console.log(parsedData);
+    // console.log(parsedData);
 
     this.setState({articles : parsedData.articles, totalResults : parsedData.totalResults});
     this.setState({loading : false});
@@ -76,18 +76,18 @@ export class News extends Component {
 
     return (
       <div className="container my-2">
-        <h2 className = {`text-center text-${this.props.mode==="light" ? "dark" : "light"}`}>News Daily - Top Headlines</h2>
+        <h2 className = {`text-center text-${this.props.mode==="light" ? "dark" : "light"}`}>News Daily - Top {this.props.category} Headlines </h2>
         {this.state.loading && <Spinner />}
         <div className="row my-2">
             {!this.state.loading && this.state.articles.map((element)=>{
-                return  <div className="col-md-4" key = {element.url}>
+                return  <div className="col-md-4 h-50" key = {element.url}>
                 <NewsItem
                   title={element.title ? element.title.slice(0, 40) : ""}
                   description={element.description ? element.description.slice(0, 60) : ""}
                   imageUrl={element.urlToImage ? element.urlToImage : "https://aithority.com/wp-content/uploads/2021/10/NASAs-Juno-Science-Results-Offer-First-3D-View-of-Jupiter-Atmosphere.jpg"}
                   newsUrl = {element.url}
-
-
+                  author = {element.author}
+                  date = {element.publishedAt}
 
                   mode = {this.props.mode} 
                 />

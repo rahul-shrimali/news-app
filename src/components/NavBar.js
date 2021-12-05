@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
-
   static defaultProps = {
     mode : 'light'
   }
@@ -13,7 +12,6 @@ export class NavBar extends Component {
   }
 
   render() {
-
     const mode = this.props.mode;
     const toggleMode = this.props.toggleMode;
 

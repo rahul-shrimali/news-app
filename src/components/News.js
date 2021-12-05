@@ -16,10 +16,12 @@ export class News extends Component {
     };
   }
 
+
   async componentDidMount() {
     this.setState({ loading: true });
     this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.api}&page=1&pageSize=${this.state.pageSize}`;
+
     let data = await fetch(url);
     this.props.setProgress(40);
     let parsedData = await data.json();
@@ -44,8 +46,7 @@ export class News extends Component {
   //     this.setState({ page: this.state.page + 1 });
   //   }
 
-  //   let data = await fetch(url);
-  //   let parsedData = await data.json();
+
 
   //   this.setState({ articles: parsedData.articles });
   //   this.setState({ loading: false });
@@ -53,7 +54,7 @@ export class News extends Component {
 
   // {// handleNextClick = async ()=>{
   //   console.log("Next");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${this.props.api}&page=${this.state.page + 1}&pageSize=18`;
+
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -65,7 +66,7 @@ export class News extends Component {
 
   // handlePrevClick = async ()=>{
   //   console.log("Prev");
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${this.props.api}&page=${this.state.page - 1}&pageSize=18`;
+
   //   let data = await fetch(url);
   //   let parsedData = await data.json();
   //   // console.log(parsedData);
@@ -103,6 +104,7 @@ export class News extends Component {
           News Daily - Top {this.props.category} Headlines{" "}
         </h2>
         {this.state.loading && <Spinner />}
+
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
@@ -139,6 +141,7 @@ export class News extends Component {
           <button type="button" class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`}  onClick = {()=> this.handleClick(true)} disabled = {this.state.page <= 1}>&larr; Previous</button>
           <button type="button"  class={`btn btn-${this.props.mode==="light" ? "dark" : "light"}`} onClick = {()=> this.handleClick(false)} disabled = {this.state.page === Math.ceil(this.state.totalResults / this.state.pageSize)}>Next &rarr;</button>
         </div> */}
+
       </div>
     );
   }

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import NavBar from "./components/NavBar";
 import News from "./components/News";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import LoadingBar from 'react-top-loading-bar'
 
 export default class App extends Component {
   constructor() {
@@ -11,6 +12,14 @@ export default class App extends Component {
     this.state = {
       mode: "light",
     };
+  }
+
+  state = {
+    progress : 0
+  }
+
+  setProgress = (progress)=>{
+    this.setState({progress : progress});
   }
 
   toggleMode = () => {
@@ -27,11 +36,17 @@ export default class App extends Component {
     return (
       <div>
         <Router>
+        <LoadingBar
+        color='#f11946'
+        progress={this.state.progress}
+        
+      />
           <NavBar mode={this.state.mode} toggleMode={this.toggleMode} />
 
           <Switch>
             <Route exact path="/">
               <News
+                setProgress = {this.setProgress}
                 key="general"
                 mode={this.state.mode}
                 country="in"
@@ -40,6 +55,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/business">
               <News
+                setProgress = {this.setProgress}
                 key="business"
                 mode={this.state.mode}
                 country="in"
@@ -48,6 +64,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/entertainment">
               <News
+                setProgress = {this.setProgress}
                 key="entertainment"
                 mode={this.state.mode}
                 country="in"
@@ -56,6 +73,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/health">
               <News
+                setProgress = {this.setProgress}
                 key="health"
                 mode={this.state.mode}
                 country="in"
@@ -64,6 +82,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/science">
               <News
+                setProgress = {this.setProgress}
                 key="science"
                 mode={this.state.mode}
                 country="in"
@@ -72,6 +91,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/sports">
               <News
+                setProgress = {this.setProgress}
                 key="sports"
                 mode={this.state.mode}
                 country="in"
@@ -80,6 +100,7 @@ export default class App extends Component {
             </Route>
             <Route exact path="/technology">
               <News
+                setProgress = {this.setProgress}
                 key="technology"
                 mode={this.state.mode}
                 country="in"

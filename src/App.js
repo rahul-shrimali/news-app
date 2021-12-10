@@ -1,116 +1,112 @@
 import "./App.css";
 
-import React, { Component } from "react";
+import React, { useState } from "react";
 import NavBar from "./components/NavBar";
 import News from "./components/News";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
 
-export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      mode: "light",
-    };
+const App = ()=> {
+  
+
+  const [mode, setMode] = useState("light")
+  const [progress, setProgress] = useState(0)
+  const [api, setapi] = useState(process.env.REACT_APP_NEWS_API_KEY)
+
+  // api = process.env.REACT_APP_NEWS_API_KEY
+  const setProgres = (progress)=>{
+    setProgress(progress);
   }
 
-  state = {
-    progress : 0
-  }
-
-  api = process.env.REACT_APP_NEWS_API_KEY
-  setProgress = (progress)=>{
-    this.setState({progress : progress});
-  }
-
-  toggleMode = () => {
-    if (this.state.mode === "light") {
-      this.setState({ mode: "dark" });
+  const toggleMode = () => {
+    if (mode === "light") {
+   
+      setMode("dark");
       document.body.style.backgroundColor = "#464343";
     } else {
-      this.setState({ mode: "light" });
+     
+      setMode("light")
       document.body.style.backgroundColor = "white";
     }
   };
 
-  render() {
     return (
       <div>
         <Router>
         <LoadingBar
         color='#f11946'
-        progress={this.state.progress}
+        progress={progress}
         
       />
-          <NavBar mode={this.state.mode} toggleMode={this.toggleMode} />
+          <NavBar mode={mode} toggleMode={toggleMode} />
 
           <Switch>
             <Route exact path="/">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="general"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="general"
               />
             </Route>
             <Route exact path="/business">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="business"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="business"
               />
             </Route>
             <Route exact path="/entertainment">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="entertainment"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="entertainment"
               />
             </Route>
             <Route exact path="/health">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="health"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="health"
               />
             </Route>
             <Route exact path="/science">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="science"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="science"
               />
             </Route>
             <Route exact path="/sports">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="sports"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="sports"
               />
             </Route>
             <Route exact path="/technology">
               <News
-                api = {this.api}
-                setProgress = {this.setProgress}
+                api = {api}
+                setProgress = {setProgres}
                 key="technology"
-                mode={this.state.mode}
+                mode={mode}
                 country="in"
                 category="technology"
               />
@@ -119,5 +115,7 @@ export default class App extends Component {
         </Router>
       </div>
     );
-  }
+  
 }
+
+export default App;

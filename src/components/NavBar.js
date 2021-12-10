@@ -2,20 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export class NavBar extends Component {
+const NavBar = (props)=> {
 
-  static defaultProps = {
-    mode : 'light'
-  }
+ 
 
-  static propTypes = {
-    mode : PropTypes.string
-  }
-
-  render() {
-
-    const mode = this.props.mode;
-    const toggleMode = this.props.toggleMode;
+    const mode = props.mode;
+    const toggleMode = props.toggleMode;
 
     return (
       <div>
@@ -103,7 +95,7 @@ export class NavBar extends Component {
         </nav>
       </div>
     );
-  }
+  
 }
 
 export default NavBar;

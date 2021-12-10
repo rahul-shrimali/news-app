@@ -14,7 +14,9 @@ const NewsItem = (props)=> {
               {description}...
             </p>
 
+
             <p className="card-text"><small className="text-muted">By {author} on {new Date(date).toUTCString()}</small></p>
+
             <a rel="noreferrer" href={newsUrl}  target = "_blank" className={`btn btn-${mode==="light" ? "dark" : "light"} btn-sm`}>
               Read more
             </a>
